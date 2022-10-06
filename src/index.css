@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+@font-face {
+  font-family: Roboto normal;
+  src: url('../font/Roboto-Thin.ttf');
+}
+@font-face {
+  font-family: Roboto media;
+  src: url('../font/Roboto-Regular.ttf');
+}
+@font-face {
+  font-family: Roboto forte;
+  src: url('../font/Roboto-Bold.ttf');
+}
+*{
+  font-family: Roboto normal;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
