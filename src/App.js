@@ -944,8 +944,8 @@ function App() {
       <div className='Map'>
         <ReactMapGL
           initialViewState={{
-            latitude: -5.11839,
-            longitude: -39.5434,
+            latitude: -6.11839,
+            longitude: -38.5434,
             zoom: 6
           }}
 
