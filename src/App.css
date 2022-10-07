@@ -10,11 +10,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 20%;
-  height: 100%;
-  background: rgb(49, 49, 49);
+  width: 30%;
+  height: 100vh;
+  background: rgb(0, 0, 0);
 }
 .Map{
-  width: 80%;
-  height: 100%;
+  width: 70%;
+  height: 100vh;
+}
+.mark{
+  width: 40px;
+  height: 40px;
+}
+.mapboxgl-marker .img{
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  background: rgba(209, 221, 38, 0.411);
 }
