@@ -7,6 +7,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 @font-face {
+  font-family: Roboto fina;
+  src: url('../font/Roboto-Light.ttf');
+}
+@font-face {
   font-family: Roboto normal;
   src: url('../font/Roboto-Thin.ttf');
 }

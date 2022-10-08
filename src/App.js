@@ -3,6 +3,7 @@ import  ReactMapGL, {Marker} from 'react-map-gl'
 import Covid from './icons/covid.png'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl from 'mapbox-gl';
+import { useEffect, useState } from 'react';
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
 mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
@@ -932,6 +933,171 @@ const cordenadas = [{ lat: -3.46612, lng: -40.67894 },
 const colors = ['rgba(0, 255, 170, 0.568)','rgba(0, 195, 255, 0.562)', 'rgba(0, 255, 136, 0.493)', 'rgba(51, 142, 185, 0.61)']
 
 function App() {
+  const [intervalo, setintervalo] = useState(0)
+  const [min, setmin] = useState(0)
+  const [max, setmax] = useState(0)
+  const [class1, setclass1] = useState(true)
+  const [class2, setclass2] = useState(true)
+  const [class3, setclass3] = useState(true)
+  const [class4, setclass4] = useState(true)
+  const [class5, setclass5] = useState(true)
+  const [class6, setclass6] = useState(true)
+  const [class7, setclass7] = useState(true)
+  const [class8, setclass8] = useState(true)
+  const [class9, setclass9] = useState(true)
+
+
+  useEffect(() => {
+    setmin(Math.min(...mortes))
+    setmax(Math.max(...mortes))
+    const variacao =(max - min)/8
+    setintervalo(variacao)
+  }, [min, max])
+  function checarclasse(i){
+    if(i <= min+intervalo){
+      return class1
+    }
+    if(i >= min+intervalo && i < min+(intervalo*2)){
+      return class2
+    }
+    if(i >= min+(intervalo*2) & i < min+(intervalo*3)){
+      return class3
+    }
+    if(i >= min+(intervalo*3) & i < min+(intervalo*4)){
+      return class4
+    }
+    if(i >= min+(intervalo*4) & i < min+(intervalo*5)){
+      return class5
+    }
+    if(i >= min+(intervalo*5) & i < min+(intervalo*6)){
+      return class6
+    }
+    if(i >= min+(intervalo*6) & i < min+(intervalo*7)){
+      return class7
+    }
+    if(i >= min+(intervalo*7) & i < min+(intervalo*8)){
+      return class8
+    }
+    if(i >= min+(intervalo*8) & i <= max){
+      return class9
+    }
+  }
+  function show_class(i){
+    console.log(i)
+    if(i === 'class1'){
+      setclass1(true)
+      setclass2(false)
+      setclass3(false)
+      setclass4(false)
+      setclass5(false)
+      setclass6(false)
+      setclass7(false)
+      setclass8(false)
+      setclass9(false)
+    }
+    if(i === 'class2'){
+      setclass1(false)
+      setclass2(true)
+      setclass3(false)
+      setclass4(false)
+      setclass5(false)
+      setclass6(false)
+      setclass7(false)
+      setclass8(false)
+      setclass9(false)  
+    }
+    if(i === 'class3'){
+      setclass1(false)
+      setclass2(false)
+      setclass3(true)
+      setclass4(false)
+      setclass5(false)
+      setclass6(false)
+      setclass7(false)
+      setclass8(false)
+      setclass9(false)
+  
+    }
+    if(i === 'class4'){
+      setclass1(false)
+      setclass2(false)
+      setclass3(false)
+      setclass4(true)
+      setclass5(false)
+      setclass6(false)
+      setclass7(false)
+      setclass8(false)
+      setclass9(false)  
+    }
+    if(i === 'class5'){
+      setclass1(false)
+      setclass2(false)
+      setclass3(false)
+      setclass4(false)
+      setclass5(true)
+      setclass6(false)
+      setclass7(false)
+      setclass8(false)
+      setclass9(false)
+    }
+    if(i === 'class6'){
+      setclass1(false)
+      setclass2(false)
+      setclass3(false)
+      setclass4(false)
+      setclass5(false)
+      setclass6(true)
+      setclass7(false)
+      setclass8(false)
+      setclass9(false)  
+    }
+    if(i === 'class7'){
+      setclass1(false)
+      setclass2(false)
+      setclass3(false)
+      setclass4(false)
+      setclass5(false)
+      setclass6(false)
+      setclass7(true)
+      setclass8(false)
+      setclass9(false)  
+    }
+    if(i === 'class8'){
+      setclass1(false)
+      setclass2(false)
+      setclass3(false)
+      setclass4(false)
+      setclass5(false)
+      setclass6(false)
+      setclass7(false)
+      setclass8(true)
+      setclass9(false)  
+    }
+    if(i === 'class9'){
+      setclass1(false)
+      setclass2(false)
+      setclass3(false)
+      setclass4(false)
+      setclass5(false)
+      setclass6(false)
+      setclass7(false)
+      setclass8(false)
+      setclass9(true)
+    }
+    if(i === 'todos'){
+      setclass1(true)
+      setclass2(true)
+      setclass3(true)
+      setclass4(true)
+      setclass5(true)
+      setclass6(true)
+      setclass7(true)
+      setclass8(true)
+      setclass9(true)
+
+    }
+  }
+
   return (
     <div className="App">
       <div className='descri'>
@@ -942,6 +1108,21 @@ function App() {
         <div className='info'>
           Esse mapa em questão disrespeito a quantidades a quantidade 
           de óbitos, por cidade, decorrentes de COVID no estado do Ceará em 2021. Os dados foram obtidos através do site não governamental https://brasil.io/covid19/CE/  
+        </div>
+        <div style={{display:'flex', justifyContent:'start', flexDirection:'column'}}>
+          <h2>Quantidade de mortos</h2>
+          <select onChange={(e) => show_class(e.target.value)}>
+            <option value='todos'>Todos</option>
+              <option value='class1'>{min} - {Math.floor(min+intervalo)} mortes</option>
+             <option value='class2'>{Math.floor(min+intervalo)} - {Math.floor(min+(intervalo*2))} mortes</option>
+             <option value='class3'>{Math.floor(min+(intervalo*2))} - {Math.floor(min+(intervalo*3))} mortes</option>
+             <option value='class4'>{Math.floor(min+(intervalo*3))} - {Math.floor(min+(intervalo*4))} mortes</option>
+             <option value='class5'>{Math.floor(min+(intervalo*4))} - {Math.floor(min+(intervalo*5))} mortes</option>
+             <option value='class6'>{Math.floor(min+(intervalo*5))} - {Math.floor(min+(intervalo*6))} mortes</option>
+             <option value='class7'>{Math.floor(min+(intervalo*6))} - {Math.floor(min+(intervalo*7))} mortes</option>
+             <option value='class8'>{Math.floor(min+(intervalo*7))} - {Math.floor(min+(intervalo*8))} mortes</option>
+             <option value='class9'>{Math.floor(min+(intervalo*8))} - {max} mortes</option>
+          </select>
         </div>
       </div>
       <div className='Map'>
@@ -955,8 +1136,8 @@ function App() {
           mapStyle="mapbox://styles/mapbox/dark-v9"
           mapboxAccessToken={MAPBOX_TOKEN}>
             {cordenadas.map((item, index) =>(
-                <Marker key={index} latitude={item.lat} longitude={item.lng} anchor="bottom" >
-                <div style={{
+                <Marker key={index}  latitude={item.lat} longitude={item.lng} anchor="bottom" >
+                <div id={checarclasse(mortes[index])? 'ponto show': 'ponto'} style={{
                   width:mortes[index]*0.1+'px', 
                   height:mortes[index]*0.1+'px',
                   minHeight:'5px',
@@ -965,11 +1146,11 @@ function App() {
                   maxHeight:'50px', 
                   backgroundColor:colors[Math.floor(Math.random() * (colors.length - 0 + 1)) + 0]}} 
                   className='img'>
-                    <div>{mortes[index]} mortes</div>
+                    <div >{mortes[index]} mortes</div>
                 </div>
               </Marker>
 
-            ))}
+              ))}
       </ReactMapGL>
       </div>
     </div>
