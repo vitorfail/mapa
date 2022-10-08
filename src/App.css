@@ -57,7 +57,7 @@
   transition: all ease 0.4s;
   margin-top: -63px;
   margin-left: 53px;
-  position: relative;
+  position: absolute;
   z-index: 199;
   display: none;
   justify-content: center;
