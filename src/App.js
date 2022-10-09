@@ -4,6 +4,7 @@ import Covid from './icons/covid.png'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl from 'mapbox-gl';
 import { useEffect, useState } from 'react';
+import ProgressBar from './componentes/ProgressBar';
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
 mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
@@ -933,8 +934,14 @@ const cordenadas = [{ lat: -3.46612, lng: -40.67894 },
 const colors = ['rgba(0, 255, 170, 0.568)','rgba(0, 195, 255, 0.562)', 'rgba(0, 255, 136, 0.493)', 'rgba(51, 142, 185, 0.61)']
 
 function App() {
-  const [click , setclick] =useState(false)
-  const [cord, setcord] = useState({x:0, y:0 })
+  const [viewport, setViewport] = useState({
+    latitude: -6.11839,
+    longitude: -38.5434,
+    with:'100vw',
+    height:'100vh',
+    zoom: 6
+  })
+  const[ z, setz] = useState(6)
   const [intervalo, setintervalo] = useState(0)
   const [min, setmin] = useState(0)
   const [max, setmax] = useState(0)
@@ -983,7 +990,6 @@ function App() {
     }
   }
   function show_class(i){
-    console.log(i)
     if(i === 'class1'){
       setclass1(true)
       setclass2(false)
@@ -1097,25 +1103,6 @@ function App() {
 
     }
   }
-  function mouseClick(){
-    if(click == true){
-      setclick(false)
-    }
-    else{
-      setclick(true)
-    }
-  }
-  function moverMouse(e){
-    if(click === true){
-      setcord({
-        x: e.clientX,
-        y: e.clienty
-      })
-      console.log(e.clientX)
-      console.log(e.clientY)
-  
-    }
-  }
   return (
     <div className="App">
       <div className='descri'>
@@ -1127,9 +1114,9 @@ function App() {
           Esse mapa em questão disrespeito a quantidades a quantidade 
           de óbitos, por cidade, decorrentes de COVID no estado do Ceará em 2021. Os dados foram obtidos através do site não governamental https://brasil.io/covid19/CE/  
         </div>
-        <div style={{display:'flex', flexDirection:'column', width:'100%'}}>
+        <div style={{display:'flex', flexDirection:'column', width:'100%', padding: '17px'}}>
           <h2>Quantidade de mortos</h2>
-          <select onChange={(e) => show_class(e.target.value)} style={{width:'30%'}}>
+          <select onChange={(e) => show_class(e.target.value)} style={{width:'44%'}}>
             <option value='todos'>Todos</option>
               <option value='class1'>{min} - {Math.floor(min+intervalo)} mortes</option>
              <option value='class2'>{Math.floor(min+intervalo)} - {Math.floor(min+(intervalo*2))} mortes</option>
@@ -1142,22 +1129,15 @@ function App() {
              <option value='class9'>{Math.floor(min+(intervalo*8))} - {max} mortes</option>
           </select>
         </div>
-        <div style={{width:'100%'}}>
-          <div className='progressbar'>
-            <div className='display' onMouseDown={() => mouseClick()} onMouseUp={() =>mouseClick()} onMouseMove={(event) => moverMouse(event)}></div>
-          </div>
-        </div>
       </div>
       <div className='Map'>
         <ReactMapGL
-          initialViewState={{
-            latitude: -6.11839,
-            longitude: -38.5434,
-            zoom: 6
-          }}
+          initialViewState= {viewport}
 
           mapStyle="mapbox://styles/mapbox/dark-v9"
-          mapboxAccessToken={MAPBOX_TOKEN}>
+          mapboxAccessToken={MAPBOX_TOKEN}
+          
+          >
             {cordenadas.map((item, index) =>(
                 <Marker key={index}  latitude={item.lat} longitude={item.lng} anchor="bottom" >
                 <div id={checarclasse(mortes[index])? 'ponto show': 'ponto'} style={{

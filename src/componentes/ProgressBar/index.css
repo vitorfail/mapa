@@ -1,0 +1,16 @@
+.progressbar{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 6px;
+    background: #fff;
+}
+.progressbar .display{
+    transition: all ease 0.2s;
+    cursor: pointer;
+    background: white;
+    position: absolute;
+    height: 27px;
+    width: 23px;
+    border: 1px solid black;
+}
