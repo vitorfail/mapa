@@ -933,6 +933,8 @@ const cordenadas = [{ lat: -3.46612, lng: -40.67894 },
 const colors = ['rgba(0, 255, 170, 0.568)','rgba(0, 195, 255, 0.562)', 'rgba(0, 255, 136, 0.493)', 'rgba(51, 142, 185, 0.61)']
 
 function App() {
+  const [click , setclick] =useState(false)
+  const [cord, setcord] = useState({x:0, y:0 })
   const [intervalo, setintervalo] = useState(0)
   const [min, setmin] = useState(0)
   const [max, setmax] = useState(0)
@@ -945,8 +947,6 @@ function App() {
   const [class7, setclass7] = useState(true)
   const [class8, setclass8] = useState(true)
   const [class9, setclass9] = useState(true)
-
-
   useEffect(() => {
     setmin(Math.min(...mortes))
     setmax(Math.max(...mortes))
@@ -1097,7 +1097,25 @@ function App() {
 
     }
   }
-
+  function mouseClick(){
+    if(click == true){
+      setclick(false)
+    }
+    else{
+      setclick(true)
+    }
+  }
+  function moverMouse(e){
+    if(click === true){
+      setcord({
+        x: e.clientX,
+        y: e.clienty
+      })
+      console.log(e.clientX)
+      console.log(e.clientY)
+  
+    }
+  }
   return (
     <div className="App">
       <div className='descri'>
@@ -1109,9 +1127,9 @@ function App() {
           Esse mapa em questão disrespeito a quantidades a quantidade 
           de óbitos, por cidade, decorrentes de COVID no estado do Ceará em 2021. Os dados foram obtidos através do site não governamental https://brasil.io/covid19/CE/  
         </div>
-        <div style={{display:'flex', justifyContent:'start', flexDirection:'column'}}>
+        <div style={{display:'flex', flexDirection:'column', width:'100%'}}>
           <h2>Quantidade de mortos</h2>
-          <select onChange={(e) => show_class(e.target.value)}>
+          <select onChange={(e) => show_class(e.target.value)} style={{width:'30%'}}>
             <option value='todos'>Todos</option>
               <option value='class1'>{min} - {Math.floor(min+intervalo)} mortes</option>
              <option value='class2'>{Math.floor(min+intervalo)} - {Math.floor(min+(intervalo*2))} mortes</option>
@@ -1123,6 +1141,11 @@ function App() {
              <option value='class8'>{Math.floor(min+(intervalo*7))} - {Math.floor(min+(intervalo*8))} mortes</option>
              <option value='class9'>{Math.floor(min+(intervalo*8))} - {max} mortes</option>
           </select>
+        </div>
+        <div style={{width:'100%'}}>
+          <div className='progressbar'>
+            <div className='display' onMouseDown={() => mouseClick()} onMouseUp={() =>mouseClick()} onMouseMove={(event) => moverMouse(event)}></div>
+          </div>
         </div>
       </div>
       <div className='Map'>
