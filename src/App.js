@@ -4,6 +4,7 @@ import Covid from './icons/covid.png'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl from 'mapbox-gl';
 import { useEffect, useState } from 'react';
+import Loading from './componentes/Loading';
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
 mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
@@ -933,6 +934,7 @@ const cordenadas = [{ lat: -3.46612, lng: -40.67894 },
 const colors = ['rgba(0, 255, 170, 0.568)','rgba(0, 195, 255, 0.562)', 'rgba(0, 255, 136, 0.493)', 'rgba(51, 142, 185, 0.61)']
 
 function App() {
+  const [loading, setloading] = useState(true)
   const [click , setclick] =useState(false)
   const [cord, setcord] = useState({x:0, y:0 })
   const [intervalo, setintervalo] = useState(0)
@@ -952,6 +954,9 @@ function App() {
     setmax(Math.max(...mortes))
     const variacao =(max - min)/8
     setintervalo(variacao)
+    setTimeout(() => {
+      setloading(false)
+    }, 3000);
   }, [min, max])
   function checarclasse(i){
     if(i <= min+intervalo){
@@ -1116,7 +1121,7 @@ function App() {
   
     }
   }
-  return (
+  return (loading? <Loading></Loading>:
     <div className="App">
       <div className='descri'>
         <div className='titulo'>

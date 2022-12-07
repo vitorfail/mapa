@@ -1,0 +1,43 @@
+.loading{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 899;
+    background: black;
+}
+.loading .ciculo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 400px;
+    height: 400px;
+    outline: 2px dashed rgba(63, 63, 253, 0.747);
+    transition: all ease 0.2s;
+    animation: rodar1 4s infinite linear;
+}
+.loading img{
+    position: absolute;
+    width: 96%;
+    transition: all ease 0.2s;
+    animation: rodar2 7s infinite linear;
+}
+@keyframes rodar1 {
+    100%{
+        transform: rotateZ(-200deg);
+    }
+} 
+@keyframes rodar2 {
+    100%{
+        transform: rotateZ(400deg);
+    }
+} 
+@media screen and (max-width:700px) {
+    .loading .ciculo{
+        width: 200px;
+        height: 200px;
+    }
+}
