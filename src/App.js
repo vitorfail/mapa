@@ -1144,9 +1144,6 @@ function App() {
           </select>
         </div>
         <div style={{width:'100%'}}>
-          <div className='progressbar'>
-            <div className='display' style={{mar}} onMouseDown={() => mouseClick()} onMouseUp={() =>mouseClick()} onMouseMove={(event) => moverMouse(event)}></div>
-          </div>
         </div>
       </div>
       <div className='Map'>
